@@ -1,15 +1,63 @@
 'use client';
 
-import { useState } from 'react';
-import BrandMark from './brand';
+import { useEffect, useRef, useState } from 'react';
+import { Wordmark } from './brand';
+
+const links = [
+  { href: '#about', label: 'About' },
+  { href: '#services', label: 'Services' },
+  { href: '#approach', label: 'Approach' },
+];
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
-  return <header className="site-header" id="top"><div className="shell nav">
-    <a className="brand" href="#top" aria-label="ArcX9 home" onClick={() => setOpen(false)}><BrandMark /><span>ArcX<span className="brand-nine">9</span></span></a>
-    <button className="menu-toggle" type="button" aria-expanded={open} aria-controls="main-navigation" onClick={() => setOpen(!open)}>{open ? 'Close ×' : 'Menu +'}</button>
-    <nav id="main-navigation" aria-label="Main navigation" className={open ? 'is-open' : ''} onKeyDown={(event) => { if (event.key === 'Escape') { setOpen(false); document.querySelector<HTMLButtonElement>('.menu-toggle')?.focus(); } }}>
-      <a href="#about" onClick={() => setOpen(false)}>About</a><a href="#services" onClick={() => setOpen(false)}>Services</a><a href="#approach" onClick={() => setOpen(false)}>Our approach</a><a className="nav-cta" href="#contact" data-magnetic onClick={() => setOpen(false)}>Let’s talk <span>↗</span></a>
-    </nav>
-  </div></header>;
+  const [active, setActive] = useState<string | null>(null);
+  const [hovered, setHovered] = useState<string | null>(null);
+  const linksRef = useRef<HTMLDivElement>(null);
+  const indicatorRef = useRef<HTMLSpanElement>(null);
+  const close = () => setOpen(false);
+
+  // Scroll-spy: highlight the link whose section crosses the middle of the viewport.
+  useEffect(() => {
+    const watched = [document.querySelector('.hero'), ...links.map((l) => document.querySelector(l.href))].filter(Boolean) as Element[];
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) setActive(entry.target.id ? `#${entry.target.id}` : null);
+      }
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    watched.forEach((el) => io.observe(el));
+    const onResize = () => { if (innerWidth > 860) setOpen(false); };
+    addEventListener('resize', onResize);
+    return () => { io.disconnect(); removeEventListener('resize', onResize); };
+  }, []);
+
+  // Sliding pill follows hover, falling back to the active section.
+  const target = hovered ?? active;
+  useEffect(() => {
+    const wrap = linksRef.current;
+    const pill = indicatorRef.current;
+    if (!wrap || !pill) return;
+    const el = target ? wrap.querySelector<HTMLElement>(`a[href="${target}"]`) : null;
+    if (!el) { pill.style.opacity = '0'; return; }
+    pill.style.opacity = '1';
+    pill.style.width = `${el.offsetWidth}px`;
+    pill.style.transform = `translateX(${el.offsetLeft}px)`;
+  }, [target]);
+
+  return <header className={`topbar${open ? ' is-open' : ''}`} id="top">
+    <div className="shell topbar-inner">
+      <a className="brand" href="#top" aria-label="ArcX9 home" onClick={close}><Wordmark /></a>
+      <nav id="main-navigation" className="topbar-nav" aria-label="Main navigation" onKeyDown={(event) => { if (event.key === 'Escape') { close(); document.querySelector<HTMLButtonElement>('.topbar-toggle')?.focus(); } }}>
+        <div className="topbar-links" ref={linksRef} onMouseLeave={() => setHovered(null)}>
+          <span className="topbar-indicator" ref={indicatorRef} aria-hidden="true" />
+          {links.map((link) => <a key={link.href} href={link.href} className={active === link.href ? 'is-active' : undefined} aria-current={active === link.href ? 'location' : undefined} onMouseEnter={() => setHovered(link.href)} onFocus={() => setHovered(link.href)} onBlur={() => setHovered(null)} onClick={close}>{link.label}</a>)}
+        </div>
+        <a className="topbar-cta" href="#contact" data-magnetic onClick={close}>
+          <span>Let’s talk</span>
+          <span className="topbar-cta-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17 17 7M9 7h8v8" /></svg></span>
+        </a>
+      </nav>
+      <button className="topbar-toggle" type="button" aria-expanded={open} aria-controls="main-navigation" aria-label={open ? 'Close menu' : 'Open menu'} onClick={() => setOpen(!open)}><span /><span /></button>
+    </div>
+  </header>;
 }

@@ -1,5 +1,5 @@
 import Navigation from './navigation';
-import BrandMark from './brand';
+import BrandMark, { Wordmark } from './brand';
 import Motion from './motion';
 
 /** Splits text into masked words for the staggered headline reveal. */
@@ -7,8 +7,6 @@ function Words({ text, start, className = '' }: { text: string; start: number; c
   const words = text.split(' ');
   return <>{words.map((word, i) => <span key={`${word}-${i}`}><span className={`word ${className}`.trim()}><span style={{ '--i': start + i } as React.CSSProperties}>{word}</span></span>{i < words.length - 1 ? ' ' : ''}</span>)}</>;
 }
-
-const tickerItems = ['BUILD WITH INTENT', 'DESIGN FOR PEOPLE', 'SECURE BY DEFAULT', 'READY TO SCALE'];
 
 type IconName = 'code' | 'cloud' | 'shield' | 'spark' | 'arrow' | 'layers' | 'pulse';
 
@@ -61,19 +59,17 @@ export default function Home() {
         <div className="hero-bottom"><span>SCROLL TO EXPLORE <b>↓</b></span><span>STRATEGY / ENGINEERING / SECURITY</span><span>EST. FOR WHAT'S NEXT</span></div>
       </section>
 
-      <section className="ticker" aria-label="ArcX9 services"><div className="ticker-track">{[0, 1, 2, 3].flatMap((copy) => tickerItems.map((item) => <span key={`${item}-${copy}`} aria-hidden={copy > 0 || undefined}>{item}<i>✳</i></span>))}</div></section>
-
       <section className="intro section shell" id="about">
         <div className="section-kicker" data-reveal><span>01</span><i /> WHO WE ARE</div>
         <div className="intro-content"><h2 data-reveal>Good technology should make the complex <em>feel clear.</em></h2><div className="intro-copy" data-reveal style={{ '--d': '.15s' } as React.CSSProperties}><p>We bring strategy, engineering, and design together to solve the problems that matter. From first idea to dependable delivery, we make technology work for your people and your goals.</p><a className="under-link" href="#approach">Get to know ArcX9 <Icon name="arrow" size={16} /></a></div></div>
-        <div className="metrics" data-stagger><div><strong><em className="count" data-count="1">01</em><span>—</span></strong><small>Partner, from day one</small></div><div><strong><em className="count" data-count="360">360</em><span>°</span></strong><small>Thoughtful end-to-end view</small></div><div><strong>∞</strong><small>Room to grow and adapt</small></div></div>
+        <div className="metrics" data-reveal><div><strong><em className="count" data-count="1">01</em><span>—</span></strong><small>Partner, from day one</small></div><div><strong><em className="count" data-count="360">360</em><span>°</span></strong><small>Thoughtful end-to-end view</small></div><div><strong>∞</strong><small>Room to grow and adapt</small></div></div>
       </section>
 
       <section className="services section" id="services"><div className="shell">
         <div className="section-kicker" data-reveal><span>02</span><i /> WHAT WE DO</div>
         <div className="section-heading"><h2 data-reveal>Built around your<br /><em>next big move.</em></h2><p data-reveal style={{ '--d': '.15s' } as React.CSSProperties}>From core infrastructure to customer-facing products, we help you make the right technology choices—and make them work.</p></div>
         <div className="service-grid" data-stagger>{services.map((service) => <article className="service-card" key={service.number}><div className="service-meta"><span>{service.number} / CAPABILITY</span><span className="service-icon"><Icon name={service.icon} size={21} /></span></div><h3>{service.title}</h3><p>{service.text}</p><div className="service-footer"><span>{service.tag}</span><a href="#contact" aria-label={`Discuss ${service.title}`}><Icon name="arrow" size={18} /></a></div></article>)}</div>
-        <div className="capability-bar"><span>ALSO IN OUR TOOLKIT</span><div data-stagger>{capabilities.map((item) => <span key={item}>{item}</span>)}</div></div>
+        <div className="capability-bar"><span>ALSO IN OUR TOOLKIT</span><div data-reveal>{capabilities.map((item) => <span key={item}>{item}</span>)}</div></div>
       </div></section>
 
       <section className="approach section shell" id="approach">
@@ -86,6 +82,6 @@ export default function Home() {
 
       <section className="contact section shell" id="contact"><div className="contact-top"><div className="section-kicker" data-reveal><span>04</span><i /> LET'S TALK</div><span className="contact-code" data-reveal>ARCX9 / OPEN CHANNEL</span></div><div className="contact-body"><h2 data-reveal>Have a challenge<br />worth <em>solving?</em></h2><div data-reveal style={{ '--d': '.15s' } as React.CSSProperties}><p>Tell us where you want to go. We’ll help you map the way forward.</p><a className="button button-primary" data-magnetic href="mailto:hello@arcx9.com?subject=Let%E2%80%99s%20talk%20technology">Let’s talk about it <Icon name="arrow" size={18} /></a></div></div></section>
     </main>
-    <footer className="footer"><div className="shell footer-main"><a className="brand" href="#top" aria-label="ArcX9 home"><BrandMark /><span>ArcX<span className="brand-nine">9</span></span></a><p>Technology that moves business forward.</p><div className="footer-nav"><a href="#services">Services</a><a href="#approach">Approach</a><a href="#contact">Contact</a></div><a className="back-top" href="#top" aria-label="Back to top" data-magnetic>↑</a></div><div className="shell footer-bottom"><span>© {new Date().getFullYear()} ArcX9 Technologies</span><span>INDEPENDENT BY DESIGN. BUILT FOR WHAT'S NEXT.</span><a href="mailto:hello@arcx9.com">HELLO@ARCX9.COM</a></div></footer>
+    <footer className="footer"><div className="shell footer-main"><a className="brand" href="#top" aria-label="ArcX9 home"><Wordmark /></a><p>Technology that moves business forward.</p><div className="footer-nav"><a href="#services">Services</a><a href="#approach">Approach</a><a href="#contact">Contact</a></div><a className="back-top" href="#top" aria-label="Back to top" data-magnetic>↑</a></div><div className="shell footer-bottom"><span>© {new Date().getFullYear()} ArcX9 Technologies</span><span>INDEPENDENT BY DESIGN. BUILT FOR WHAT'S NEXT.</span><a href="mailto:hello@arcx9.com">HELLO@ARCX9.COM</a></div></footer>
   </>;
 }
