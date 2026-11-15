@@ -1,6 +1,6 @@
-# Company website
+# Arcx9
 
-A local Next.js, TypeScript, and Tailwind CSS company website starter.
+The Arcx9 company website, built with Next.js, TypeScript, and Tailwind CSS.
 
 ## Run
 
@@ -11,10 +11,8 @@ npm run dev
 
 Open http://localhost:3000. Run `npm run build` for a production check.
 
-## Customize before launch
+## Deploy to Cloudflare Workers
 
-Replace the placeholder Company brand, service copy, metadata, and `hello@example.com` contact email in `app/page.tsx` and `app/layout.tsx`. The contact button opens the visitor’s email app; no contact form backend is configured.
+The site uses the OpenNext Cloudflare adapter. `npm run deploy` builds and deploys the Worker; `npm run preview` runs it locally in the Workers runtime. The Worker configuration attaches the production custom domain `arcx9.com`.
 
-## Imported project context
-
-The supplied shared conversation proposed Next.js + TypeScript + Tailwind CSS, with PostgreSQL if a database becomes necessary. It requested Git setup but supplied no repository URL, code, company details, or website design. No database is needed for this initial presentation website. GitHub connection remains pending a repository URL.
+The contact link opens the visitor’s email app at `hello@arcx9.com`. A Firebase project has not been connected yet.
