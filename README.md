@@ -1,6 +1,6 @@
-# Arcx9
+# ArcX9
 
-The Arcx9 company website, built with Next.js, TypeScript, and Tailwind CSS.
+The ArcX9 company website, built with Next.js, TypeScript, and Tailwind CSS.
 
 ## Run
 
