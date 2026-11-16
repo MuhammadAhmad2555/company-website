@@ -138,8 +138,8 @@ a:focus-visible,button:focus-visible{outline:3px solid #9278fa;outline-offset:4p
 .core-mark .brand-symbol{width:68px;height:68px}
 .core-mark .mark-orbit{animation:mark-spin 14s linear infinite}
 @keyframes mark-spin{to{transform:rotate(360deg)}}
-.wordmark { display: block; width: 115px; height: auto; }
-.footer-main .wordmark { width: 100px; }
+.wordmark { display: block; width: 44px; height: auto; }
+.footer-main .wordmark { width: 38px; }
 
 /* ===== Top bar ===== */
 .topbar{position:sticky;top:0;z-index:30;padding-top:14px;pointer-events:none}
@@ -180,7 +180,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #9278fa;outline-offset:4p
   .topbar-indicator{display:none}
   .topbar-cta{justify-content:space-between;height:52px}
 }
-@media(max-width:640px){.core-mark .brand-symbol{width:54px;height:54px}.topbar .wordmark{width:102px}}
+@media(max-width:640px){.core-mark .brand-symbol{width:54px;height:54px}.topbar .wordmark{width:40px}}
 
 /* Full-bleed hero and a tighter transition into the first content section. */
 .hero{width:100%;min-height:min(820px,calc(100svh - 80px));margin:0;padding-inline:max(40px,calc((100vw - 1320px)/2));border-left:0;border-right:0;border-radius:0}

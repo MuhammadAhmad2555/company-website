@@ -5,7 +5,7 @@ import { Wordmark } from './brand';
 
 const links = [
   { href: '#about', label: 'About' },
-  { href: '#services', label: 'Services' },
+  { href: '#services', label: 'Capabilities' },
   { href: '#approach', label: 'Approach' },
 ];
 
@@ -52,10 +52,6 @@ export default function Navigation() {
           <span className="topbar-indicator" ref={indicatorRef} aria-hidden="true" />
           {links.map((link) => <a key={link.href} href={link.href} className={active === link.href ? 'is-active' : undefined} aria-current={active === link.href ? 'location' : undefined} onMouseEnter={() => setHovered(link.href)} onFocus={() => setHovered(link.href)} onBlur={() => setHovered(null)} onClick={close}>{link.label}</a>)}
         </div>
-        <a className="topbar-cta" href="#contact" data-magnetic onClick={close}>
-          <span>Let’s talk</span>
-          <span className="topbar-cta-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17 17 7M9 7h8v8" /></svg></span>
-        </a>
       </nav>
       <button className="topbar-toggle" type="button" aria-expanded={open} aria-controls="main-navigation" aria-label={open ? 'Close menu' : 'Open menu'} onClick={() => setOpen(!open)}><span /><span /></button>
     </div>
