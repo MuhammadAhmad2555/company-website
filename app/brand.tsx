@@ -1,11 +1,28 @@
-export default function BrandMark() {
+export default function BrandMark({ className = 'brand-mark' }: { className?: string }) {
   return (
-    <span className="brand-symbol" aria-hidden="true">
-      <img className="mark-layer" src="/icon.jpg" alt="" />
-    </span>
+    <svg className={className} viewBox="-3 0 100 67" fill="none" aria-hidden="true">
+      <g transform="matrix(1 0 -.12 1 7 0)">
+        <path
+          fill="currentColor"
+          d="M1 7h11l14 18L40 7h11L32 31l14 18c2 3 5 4 9 4h10v8H54c-8 0-12-3-16-8L26 38 9 60H-2l22-29Z"
+        />
+        <path
+          fill="#9278fa"
+          fillRule="evenodd"
+          d="M53 53h11c9 0 14-5 14-14v-3c-3 2-7 3-13 3-11 0-18-6-18-16 0-11 8-18 20-18h3c12 0 18 7 18 19v14c0 15-9 23-24 23H53Zm14-22h3c5 0 9-3 9-9 0-5-4-9-9-9h-3c-7 0-11 4-11 10 0 5 4 8 11 8Z"
+        />
+      </g>
+    </svg>
   );
 }
 
 export function Wordmark() {
-  return <img className="wordmark" src="/icon.jpg" alt="ArcX9" width="44" height="44" />;
+  return (
+    <span className="brand">
+      <BrandMark />
+      <span className="brand-word">
+        ArcX<b>9</b>
+      </span>
+    </span>
+  );
 }

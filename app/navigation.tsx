@@ -5,8 +5,10 @@ import { Wordmark } from './brand';
 
 const links = [
   { href: '#about', label: 'About' },
-  { href: '#services', label: 'Capabilities' },
-  { href: '#approach', label: 'Approach' },
+  { href: '#services', label: 'Services' },
+  { href: '#products', label: 'Applications' },
+  { href: '#websites', label: 'Websites' },
+  { href: '#process', label: 'Process' },
 ];
 
 export default function Navigation() {
@@ -53,6 +55,9 @@ export default function Navigation() {
           {links.map((link) => <a key={link.href} href={link.href} className={active === link.href ? 'is-active' : undefined} aria-current={active === link.href ? 'location' : undefined} onMouseEnter={() => setHovered(link.href)} onFocus={() => setHovered(link.href)} onBlur={() => setHovered(null)} onClick={close}>{link.label}</a>)}
         </div>
       </nav>
+      <a className="button button-primary topbar-cta" href="#contact" style={{ minHeight: 42, padding: '0 18px', fontSize: 12 }}>
+        Start a project
+      </a>
       <button className="topbar-toggle" type="button" aria-expanded={open} aria-controls="main-navigation" aria-label={open ? 'Close menu' : 'Open menu'} onClick={() => setOpen(!open)}><span /><span /></button>
     </div>
   </header>;

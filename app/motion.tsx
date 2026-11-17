@@ -79,7 +79,7 @@ export default function Motion() {
       const zoneIO = new IntersectionObserver((entries) => {
         for (const entry of entries) entry.target.classList.toggle('is-paused', !entry.isIntersecting);
       });
-      document.querySelectorAll('.hero, .ticker, .manifesto, .contact').forEach((zone) => zoneIO.observe(zone));
+      document.querySelectorAll('.hero, .ticker, .phone-stage, .contact').forEach((zone) => zoneIO.observe(zone));
       off.push(() => zoneIO.disconnect());
     }
 
@@ -108,29 +108,23 @@ export default function Motion() {
     }
 
     if (animated && finePointer) {
-      // Hero spotlight + parallax tilt
+      // Hero spotlight follows the cursor
       const hero = document.querySelector<HTMLElement>('.hero');
-      const visual = hero?.querySelector<HTMLElement>('.hero-visual');
       const spot = hero?.querySelector<HTMLElement>('.hero-spotlight');
       if (hero) {
-        // Tilt vars live on the visual only, so the rest of the hero isn't restyled.
         onPointerFrame(hero, (ev) => {
           const r = hero.getBoundingClientRect();
           const x = ev.clientX - r.left;
           const y = ev.clientY - r.top;
           if (spot) spot.style.transform = `translate3d(${x}px,${y}px,0)`;
-          visual?.style.setProperty('--px', ((x / r.width) * 2 - 1).toFixed(3));
-          visual?.style.setProperty('--py', ((y / r.height) * 2 - 1).toFixed(3));
           if (!hero.classList.contains('is-pointer')) hero.classList.add('is-pointer');
         }, () => {
-          visual?.style.setProperty('--px', '0');
-          visual?.style.setProperty('--py', '0');
           hero.classList.remove('is-pointer');
         });
       }
 
       // Card spotlight + tilt
-      document.querySelectorAll<HTMLElement>('.service-card').forEach((card) => {
+      document.querySelectorAll<HTMLElement>('[data-tilt]').forEach((card) => {
         onPointerFrame(card, (ev) => {
           const r = card.getBoundingClientRect();
           const x = ev.clientX - r.left;
